@@ -653,10 +653,20 @@ window['Slip'] = (function(){
                 topOffset = targetRect.top - Math.max(containerRect.top, 0);
 
             if (bottomOffset < triggerOffset){
-              offset = triggerOffset - bottomOffset;
+                offset = triggerOffset - bottomOffset;
+              
+                // Don't apply offset if it would scroll beyond the end of the page
+                var rootEl = document.documentElement,
+                    bodyEl = document.body,
+                    scrollTop = (rootEl && rootEl.scrollTop) || bodyEl.scrollTop,
+                    scrollHeight = (rootEl && rootEl.scrollHeight) || bodyEl.scrollHeight;
+
+                if ((scrollTop + window.innerHeight + offset) >= scrollHeight) {
+                    offset = 0;
+                }
             }
             else if (topOffset < triggerOffset){
-              offset = topOffset - triggerOffset;
+                offset = topOffset - triggerOffset;
             }
 
             var prevScrollTop = scrollable.scrollTop;
