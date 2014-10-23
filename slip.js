@@ -649,7 +649,7 @@ window['Slip'] = (function(){
             var scrollable = this.target.scrollContainer || document.body,
                 containerRect = scrollable.getBoundingClientRect(),
                 targetRect = this.target.node.getBoundingClientRect(),
-                bottomOffset = Math.min(containerRect.bottom, window.innerHeight) - targetRect.bottom,
+                bottomOffset = Math.min(scrollable.scrollTop + containerRect.bottom, window.innerHeight) - targetRect.bottom,
                 topOffset = targetRect.top - Math.max(containerRect.top, 0);
 
             if (bottomOffset < triggerOffset){
